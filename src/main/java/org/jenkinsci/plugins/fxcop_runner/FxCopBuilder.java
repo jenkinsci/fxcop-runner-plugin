@@ -34,6 +34,7 @@ public class FxCopBuilder extends Builder {
     private final String outputXML;
     private final String ruleSet;
     private final boolean ignoreGeneratedCode;
+    private final boolean forceOutput;
     private final String cmdLineArgs;
     private final boolean failBuild;
 
@@ -44,16 +45,18 @@ public class FxCopBuilder extends Builder {
      * @param outputXML
      * @param ruleSet
      * @param ignoreGeneratedCode
+     * @param forceOutput
      * @param cmdLineArgs
      * @param failBuild
      */
     @DataBoundConstructor
-    public FxCopBuilder(String toolName, String files, String outputXML, String ruleSet, boolean ignoreGeneratedCode, String cmdLineArgs, boolean failBuild) {
+    public FxCopBuilder(String toolName, String files, String outputXML, String ruleSet, boolean ignoreGeneratedCode, boolean forceOutput, String cmdLineArgs, boolean failBuild) {
         this.toolName            = toolName;
         this.files               = files;
         this.outputXML           = outputXML;
         this.ruleSet             = ruleSet;
         this.ignoreGeneratedCode = ignoreGeneratedCode;
+        this.forceOutput         = forceOutput;
         this.cmdLineArgs         = cmdLineArgs;
         this.failBuild           = failBuild;
     }
@@ -76,6 +79,10 @@ public class FxCopBuilder extends Builder {
 
     public boolean isIgnoreGeneratedCode() {
         return ignoreGeneratedCode;
+    }
+
+    public boolean isForceOutput() {
+        return forceOutput;
     }
 
     public String getCmdLineArgs() {
@@ -128,6 +135,10 @@ public class FxCopBuilder extends Builder {
         // Suppress analysis results against generated code.
         if (ignoreGeneratedCode)
             args.add("/ignoregeneratedcode");
+
+        // Write output XML and project files even in the case where no violations occurred.
+        if (forceOutput)
+            args.add("/forceoutput");
 
         // Manual Command Line String
         if (!StringUtil.isNullOrSpace(cmdLineArgs))

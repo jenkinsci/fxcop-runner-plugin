@@ -27,6 +27,11 @@
                     checked="${instance.ignoreGeneratedCode}" default="true" />
     </f:entry>
 
+    <f:entry title="${%ForceOutput}" field="forceOutput">
+        <f:checkbox name="FxCopBuilder.forceOutput" value="${instance.forceOutput}"
+                    checked="${instance.forceOutput}" default="true" />
+    </f:entry>
+
     <f:entry title="${%CommandLineArguments}" field="cmdLineArgs">
         <f:textbox name="FxCopBuilder.cmdLineArgs" value="${instance.cmdLineArgs}" />
     </f:entry>
